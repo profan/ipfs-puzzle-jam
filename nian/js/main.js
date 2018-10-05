@@ -1,5 +1,5 @@
 let words = [];
-const letters = "amnckasdr";
+const letters = "fosirhswm";
 
 function getWords() {
     jQuery.get('wordlist.txt', function(word) {
@@ -31,6 +31,15 @@ function containsMiddleLetter(inputText) {
     return inputText.includes(middleLetter);
 }
 
+function includedInWordList(inputText) {
+    for (let i = 0; i < words.length; i++) {
+        if (words[i] === inputText) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function addGuessListener() {
     document.getElementById("buttonGuess").addEventListener("click", function() {
 
@@ -40,19 +49,11 @@ function addGuessListener() {
 
         let solution = "Nope";
 
-        if (containsAllowedLetters(inputText) && containsMiddleLetter(inputText)) {
-            /*
-            for (let i = 0; i < words.length; i++) {
-                if (words[i] === inputText) {
-                    solution = words[i];
-                    break;
-                }
-            }
-            */
+        if (containsAllowedLetters(inputText) &&
+            containsMiddleLetter(inputText) &&
+            includedInWordList(inputText)) {
 
             solution = inputText;
-
-
         }
 
         li.appendChild(document.createTextNode(solution));
