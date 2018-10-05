@@ -22,9 +22,13 @@ function containsAllowedLetters(inputText) {
             return false;
         }
         correctLetters = correctLetters.replace(char, "");
-        console.log(correctLetters);
     }
     return true;
+}
+
+function containsMiddleLetter(inputText) {
+    let middleLetter = letters[4];
+    return inputText.includes(middleLetter);
 }
 
 function addGuessListener() {
@@ -36,7 +40,7 @@ function addGuessListener() {
 
         let solution = "Nope";
 
-        if (containsAllowedLetters(inputText) ) {
+        if (containsAllowedLetters(inputText) && containsMiddleLetter(inputText)) {
             /*
             for (let i = 0; i < words.length; i++) {
                 if (words[i] === inputText) {
