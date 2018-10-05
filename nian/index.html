@@ -1,7 +1,14 @@
+<!DOCTYPE html>
 <html>
 <header>
     <title>Puzzle</title>
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
+
+    <script>
+    	const guesses = new Set(["a", "b", "c"]);
+    	console.log(guesses)
+    </script>
 </header>
 <body>
 <div class="center">
@@ -9,19 +16,19 @@
     <div id="table">
         <table>
             <tr>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
+                <td id="square0"></td>
+                <td id="square1">B</td>
+                <td id="square2">C</td>
             </tr>
             <tr>
-                <td>D</td>
-                <td>E</td>
-                <td>F</td>
+                <td id="square3">D</td>
+                <td id="square4"><b>E</b></td>
+                <td id="square5">F</td>
             </tr>
             <tr>
-                <td>G</td>
-                <td>H</td>
-                <td>J</td>
+                <td id="square6">G</td>
+                <td id="square7">H</td>
+                <td id="square8">J</td>
             </tr>
         </table>
     </div>
@@ -32,8 +39,9 @@
     </div>
 
     <ul>
-        <li>guess 1</li>
-        <li>guess 2</li>
+    	<script>
+    		for (let item of guesses) document.write("<li>",item,"</li>");
+    	</script>	
     </ul>
 
 </div>
