@@ -22,6 +22,7 @@ function create_game() {
     state : null,
     number_of_moves : 0,
     flipped_card : null,
+    last_flipped_card : null,
     flipped_cards : {},
     board : ac
   }
@@ -42,12 +43,16 @@ function start_game(game_state) {
 }
 
 function flip_card(game_state, id) {
+    
+  var img = document.getElementById(id.toString())
 
   if (game_state.state == "time_to_flip") {
 
     game_state.state = "time_to_match"
     game_state.flipped_card = game_state.board[id]
     game_state.number_of_moves++
+
+    img.src = "img/" + game_state.board[id]
 
   } else if (game_state.state == "time_to_match") {
 
@@ -57,6 +62,8 @@ function flip_card(game_state, id) {
       game_state.flipped_card = null
     } else {
       // WE NO MATCH
+      img.src = "img/" + game_state.board[id]
+      img.src = "img/" + game_state.flipped_card
       game_state.flipped_card = null
     }
 
@@ -75,11 +82,6 @@ function flip_card(game_state, id) {
 
   }
 
+  console.log("I DO THE THINGS")
+
 }
-
-var gs = create_game()
-start_game(gs)
-flip_card(gs, 0)
-flip_card(gs, 3)
-
-console.log(JSON.stringify(gs))
