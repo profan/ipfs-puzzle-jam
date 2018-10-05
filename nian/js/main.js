@@ -56,21 +56,20 @@ function addGuessListener() {
         const ul = document.getElementById("solutions");
         const li = document.createElement("li");
 
-        let solution = "Nope";
-
         if (containsAllowedLetters(inputText) &&
             containsMiddleLetter(inputText) &&
             containsMinimumFourLetters(inputText) &&
             notAlreadyAcceptedSolution(inputText) &&
             includedInWordList(inputText)) {
 
-            solution = inputText;
+            let solution = inputText;
             solutions.push(solution);
+
+            li.appendChild(document.createTextNode(solution));
+            ul.appendChild(li);
+
+            document.getElementById("found").innerHTML = "Found: " + solutions.length;
         }
-
-        li.appendChild(document.createTextNode(solution));
-        ul.appendChild(li);
-
     });
 }
 

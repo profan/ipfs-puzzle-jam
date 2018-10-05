@@ -192802,6 +192802,7 @@ subsonic
 subsorter
 subsovereign
 subspace
+subspaces
 subspatulate
 subspecialist
 subspecialize
