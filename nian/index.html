@@ -7,6 +7,11 @@
             margin: 0 auto;
         }
     </style>
+
+    <script>
+    	const guesses = new Set(["a", "b", "c"]);
+    	console.log(guesses)
+    </script>
 </header>
 <body>
 <div class="center">
@@ -20,7 +25,7 @@
             </tr>
             <tr>
                 <td>D</td>
-                <td>E</td>
+                <td><b>E</b></td>
                 <td>F</td>
             </tr>
             <tr>
@@ -37,8 +42,9 @@
     </div>
 
     <ul>
-        <li>guess 1</li>
-        <li>guess 2</li>
+    	<script>
+    		for (let item of guesses) document.write("<li>",item,"</li>");
+    	</script>	
     </ul>
 
 </div>
