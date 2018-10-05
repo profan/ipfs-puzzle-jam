@@ -54,6 +54,7 @@ function flip_card(game_state, id) {
     if (game_state.flipped_card == game_state.board[id]) {
       // WE MATCH
       game_state.flipped_cards[game_state.flipped_card] = true
+      game_state.flipped_card = null
     } else {
       // WE NO MATCH
       game_state.flipped_card = null
