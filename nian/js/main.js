@@ -1,10 +1,10 @@
-const guesses = new Set(["a", "b", "c"]);
+let words = [];
 
-window.onload = function () {
-    const letters = "AMNCKASDR";
-    setSquareLetters(letters);
-    addGuessListener();
-};
+function getWords() {
+    jQuery.get('wordlist.txt', function(word) {
+        words = word.split("\n");
+    });
+}
 
 function setSquareLetters(letters) {
     for (let i = 0; i < letters.length; i++) {
@@ -14,11 +14,28 @@ function setSquareLetters(letters) {
 
 function addGuessListener() {
     document.getElementById("buttonGuess").addEventListener("click", function(){
-        var ul = document.getElementById("solutions");
-        var li = document.createElement("li");
-        var solution = "test";
+        const ul = document.getElementById("solutions");
+        const inputText = document.getElementById("inputGuess").value;
+        const li = document.createElement("li");
+
+        let solution = "Nope";
+        for (let i = 0; i < words.length; i++) {
+            if (words[i] === inputText) {
+                solution = words[i];
+                break;
+            }
+        }
+
         li.appendChild(document.createTextNode(solution));
         ul.appendChild(li);
     });
 }
+
+window.onload = function () {
+    getWords();
+
+    const letters = "AMNCKASDR";
+    setSquareLetters(letters);
+    addGuessListener();
+};
 
