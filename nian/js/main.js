@@ -1,5 +1,6 @@
 let words = [];
-const letters = "fosirhswm";
+const letters = "pecsssuba";
+let solutions = [];
 
 function getWords() {
     jQuery.get('wordlist.txt', function(word) {
@@ -40,6 +41,14 @@ function includedInWordList(inputText) {
     return false;
 }
 
+function containsMinimumFourLetters(inputText) {
+    return inputText.length >= 4;
+}
+
+function notAlreadyAcceptedSolution(inputText) {
+    return !solutions.includes(inputText);
+}
+
 function addGuessListener() {
     document.getElementById("buttonGuess").addEventListener("click", function() {
 
@@ -51,9 +60,12 @@ function addGuessListener() {
 
         if (containsAllowedLetters(inputText) &&
             containsMiddleLetter(inputText) &&
+            containsMinimumFourLetters(inputText) &&
+            notAlreadyAcceptedSolution(inputText) &&
             includedInWordList(inputText)) {
 
             solution = inputText;
+            solutions.push(solution);
         }
 
         li.appendChild(document.createTextNode(solution));
