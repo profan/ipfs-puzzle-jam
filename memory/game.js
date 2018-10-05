@@ -86,7 +86,9 @@ function flip_card(game_state, id) {
     console.log("moves : " + game_state.number_of_moves + " correct moves: " + game_state.total_flipped_cards)
 
     if (game_state.total_flipped_cards == 8) {
-      game_state.state = "game_over"
+      document.getElementById("main").style = "display: none;";
+      document.getElementById("won").style = "";
+      game_state.state = "game_winrar"
     } else {
       game_state.state = "time_to_flip"
     }

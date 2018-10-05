@@ -5,6 +5,7 @@
 <script type="text/javascript">
 var gs = create_game();
 start_game(gs);
+gs.total_flipped_cards = 7
 </script>
 <style>
 @-moz-keyframes spin {
@@ -19,7 +20,7 @@ start_game(gs);
 	      from {transform:rotate(0deg);}
 		      to {transform:rotate(360deg);}
   }
-  .won {
+  .spin {
 	  -webkit-animation-name: spin;
 	  -webkit-animation-duration: 40000ms;
 	  -webkit-animation-iteration-count: infinite;
@@ -35,6 +36,15 @@ start_game(gs);
 	  -o-transition: rotate(3600deg);
   }
 </style>
+
+<main style="display: none;" id="won">
+    <img class="spin" src="img/win.gif">
+</main>
+
+<main style="display: none;" id="lose">
+    <img class="spin" src="img/lose.gif">
+</main>
+
 <main id="main">
 <div class="row">
   <div class="column">
