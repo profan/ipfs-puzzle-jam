@@ -79,19 +79,6 @@ function flip_card(game_state, id) {
       img.className = ""
     }, 500)
 
-    for (var i = 0; i < game_state.flipped_cards.length; ++i) {
-      const card = document.getElementById(game_state.flipped_cards[i])
-      card.className += "flip"
-      game_state.in_trans = true
-      setTimeout(function() {
-        card.src = "img/dog.jpg"
-      }, 250)
-      setTimeout(function() {
-        game_state.in_trans = false
-        card.className = ""
-      }, 500)
-    }
-
     game_state.flipped_cards[0] = id
     console.log("[time_to_flip -> time_to_match] id: " + id)
 
@@ -101,6 +88,7 @@ function flip_card(game_state, id) {
       // WE MATCH
       game_state.flipped_cards = []
       game_state.in_trans = true
+      img.className = "flip"
       setTimeout(function() {
         img.src = "img/" + game_state.board[id]
       }, 250)
@@ -115,13 +103,27 @@ function flip_card(game_state, id) {
       // WE NO MATCH
       game_state.flipped_cards[1] = id
       game_state.in_trans = true
+      img.className = "flip"
       setTimeout(function() {
         img.src = "img/" + game_state.board[id]
       }, 250)
       setTimeout(function() {
-        game_state.in_trans = false
         img.className = ""
       }, 500)
+
+      for (var i = 0; i < game_state.flipped_cards.length; ++i) {
+        const card = document.getElementById(game_state.flipped_cards[i])
+          setTimeout(function() {
+            card.className = "flip"
+          }, 750)
+          setTimeout(function() {
+            card.src = "img/dog.jpg"
+          }, 1000)
+        setTimeout(function() {
+          game_state.in_trans = false
+          card.className = ""
+        }, 1250)
+      }
       console.log("[time_to_match - ?] no match: " + id)
       game_state.flipped_card = null
     }
