@@ -25,6 +25,7 @@ function create_game() {
     number_of_moves : 0,
     flipped_card : null,
     flipped_cards : [],
+    total_flipped_cards : 0,
     board : ac
   }
 }
@@ -72,6 +73,7 @@ function flip_card(game_state, id) {
       img.src = "img/" + game_state.board[id]
       console.log("[time_to_match -> ?] match: " + id)
       game_state.flipped_card = null
+      game_state.total_flipped_cards += 1
     } else {
       // WE NO MATCH
       game_state.flipped_cards[1] = id
@@ -81,13 +83,9 @@ function flip_card(game_state, id) {
     }
 
     game_state.number_of_moves++
+    console.log("moves : " + game_state.number_of_moves + " correct moves: " + game_state.total_flipped_cards)
 
-    var total_flipped_cards = 0
-    for (c in game_state.flipped_cards) {
-      total_flipped_cards++
-    }
-
-    if (total_flipped_cards == 8) {
+    if (game_state.total_flipped_cards == 8) {
       game_state.state = "game_over"
     } else {
       game_state.state = "time_to_flip"

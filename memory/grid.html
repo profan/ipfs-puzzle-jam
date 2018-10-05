@@ -1,10 +1,41 @@
-<!doctype>
+
+<!doctype html>
 <script type="text/javascript" src="game.js">
 </script>
 <script type="text/javascript">
 var gs = create_game();
 start_game(gs);
 </script>
+<style>
+@-moz-keyframes spin {
+	    from { -moz-transform: rotate(0deg); }
+		    to { -moz-transform: rotate(360deg); }
+}
+  @-webkit-keyframes spin {
+	      from { -webkit-transform: rotate(0deg); }
+		      to { -webkit-transform: rotate(360deg); }
+  }
+  @keyframes spin {
+	      from {transform:rotate(0deg);}
+		      to {transform:rotate(360deg);}
+  }
+  .won {
+	  -webkit-animation-name: spin;
+	  -webkit-animation-duration: 40000ms;
+	  -webkit-animation-iteration-count: infinite;
+	  -webkit-animation-timing-function: linear;
+	  -moz-animation-name: spin;
+	  -moz-animation-duration: 40000ms;
+	  -moz-animation-iteration-count: infinite;
+	  -moz-animation-timing-function: linear;
+	  -ms-animation-name: spin;
+	  -ms-animation-duration: 40000ms;
+	  -ms-animation-iteration-count: infinite;
+	  -ms-animation-timing-function: linear;
+	  -o-transition: rotate(3600deg);
+  }
+</style>
+<main id="main">
 <div class="row">
   <div class="column">
     <img id="0" onclick="flip_card(gs, 0)" src="img/dog.jpg">
@@ -31,3 +62,4 @@ start_game(gs);
     <img id="15" onclick="flip_card(gs, 15)" src="img/dog.jpg">
   </div>
 </div>
+</main>
