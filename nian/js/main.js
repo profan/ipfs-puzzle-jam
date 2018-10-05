@@ -1,5 +1,6 @@
 let words = [];
-const letters = "amnckasdr";
+const letters = "pecsssuba";
+let solutions = [];
 
 function getWords() {
     jQuery.get('wordlist.txt', function(word) {
@@ -31,6 +32,23 @@ function containsMiddleLetter(inputText) {
     return inputText.includes(middleLetter);
 }
 
+function includedInWordList(inputText) {
+    for (let i = 0; i < words.length; i++) {
+        if (words[i] === inputText) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function containsMinimumFourLetters(inputText) {
+    return inputText.length >= 4;
+}
+
+function notAlreadyAcceptedSolution(inputText) {
+    return !solutions.includes(inputText);
+}
+
 function addGuessListener() {
     document.getElementById("buttonGuess").addEventListener("click", function() {
 
@@ -38,26 +56,20 @@ function addGuessListener() {
         const ul = document.getElementById("solutions");
         const li = document.createElement("li");
 
-        let solution = "Nope";
+        if (containsAllowedLetters(inputText) &&
+            containsMiddleLetter(inputText) &&
+            containsMinimumFourLetters(inputText) &&
+            notAlreadyAcceptedSolution(inputText) &&
+            includedInWordList(inputText)) {
 
-        if (containsAllowedLetters(inputText) && containsMiddleLetter(inputText)) {
-            /*
-            for (let i = 0; i < words.length; i++) {
-                if (words[i] === inputText) {
-                    solution = words[i];
-                    break;
-                }
-            }
-            */
+            let solution = inputText;
+            solutions.push(solution);
 
-            solution = inputText;
+            li.appendChild(document.createTextNode(solution));
+            ul.appendChild(li);
 
-
+            document.getElementById("found").innerHTML = "Found: " + solutions.length;
         }
-
-        li.appendChild(document.createTextNode(solution));
-        ul.appendChild(li);
-
     });
 }
 
