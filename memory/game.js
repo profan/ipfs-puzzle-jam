@@ -17,12 +17,15 @@ var ac = [
   "cat_8.jpeg"
 ]
 
+var r = /\d+/
+
 function create_game() {
   return {
     state : null,
     number_of_moves : 0,
     flipped_card : null,
-    flipped_cards : {},
+    flipped_cards : [],
+    total_flipped_cards : 0,
     board : ac
   }
 }
@@ -42,43 +45,52 @@ function start_game(game_state) {
 }
 
 function flip_card(game_state, id) {
+    
+  var img = document.getElementById(id.toString())
+  console.log(img.src);
+  if (!img.src.endsWith("dog.jpg")) return;
 
   if (game_state.state == "time_to_flip") {
 
     game_state.state = "time_to_match"
-    game_state.flipped_card = game_state.board[id]
+    game_state.flipped_card = id 
     game_state.number_of_moves++
+
+    for (var i = 0; i < game_state.flipped_cards.length; ++i) {
+      var card = document.getElementById(game_state.flipped_cards[i])
+      card.src = "img/dog.jpg"
+    }
+
+    game_state.flipped_cards[0] = id
+    img.src = "img/" + game_state.board[id]
+    console.log("[time_to_flip -> time_to_match] id: " + id)
 
   } else if (game_state.state == "time_to_match") {
 
-    if (game_state.flipped_card == game_state.board[id]) {
+    if (game_state.board[game_state.flipped_card] == game_state.board[id]) {
       // WE MATCH
-      game_state.flipped_cards[game_state.flipped_card] = true
+      game_state.flipped_cards = []
+      img.src = "img/" + game_state.board[id]
+      console.log("[time_to_match -> ?] match: " + id)
+      game_state.flipped_card = null
+      game_state.total_flipped_cards += 1
     } else {
       // WE NO MATCH
+      game_state.flipped_cards[1] = id
+      img.src = "img/" + game_state.board[id]
+      console.log("[time_to_match - ?] no match: " + id)
       game_state.flipped_card = null
     }
 
     game_state.number_of_moves++
+    console.log("moves : " + game_state.number_of_moves + " correct moves: " + game_state.total_flipped_cards)
 
-    var total_flipped_cards = 0
-    for (c in game_state.flipped_cards) {
-      total_flipped_cards++
-    }
-
-    if (total_flipped_cards == 8) {
+    if (game_state.total_flipped_cards == 8) {
       game_state.state = "game_over"
     } else {
-      game_state.state = "time_to_match"
+      game_state.state = "time_to_flip"
     }
 
   }
 
 }
-
-var gs = create_game()
-start_game(gs)
-flip_card(gs, 0)
-flip_card(gs, 3)
-
-console.log(JSON.stringify(gs))
