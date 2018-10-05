@@ -1,4 +1,5 @@
 let words = [];
+const letters = "amnckasdr";
 
 function getWords() {
     jQuery.get('wordlist.txt', function(word) {
@@ -6,36 +7,59 @@ function getWords() {
     });
 }
 
-function setSquareLetters(letters) {
+function setSquareLetters() {
     for (let i = 0; i < letters.length; i++) {
-        document.getElementById("square" + i).innerHTML = letters.charAt(i);
+        document.getElementById("square" + i).innerHTML = letters.charAt(i).toUpperCase();
     }
 }
 
+function containsAllowedLetters(inputText) {
+    let correctLetters = (' ' + letters).slice(1);
+
+    for (let i = 0; i < inputText.length; i++) {
+        const char = inputText.charAt(i);
+        if (!correctLetters.includes(char)) {
+            return false;
+        }
+        correctLetters = correctLetters.replace(char, "");
+        console.log(correctLetters);
+    }
+    return true;
+}
+
 function addGuessListener() {
-    document.getElementById("buttonGuess").addEventListener("click", function(){
+    document.getElementById("buttonGuess").addEventListener("click", function() {
+
+        const inputText = document.getElementById("inputGuess").value.toLowerCase();
         const ul = document.getElementById("solutions");
-        const inputText = document.getElementById("inputGuess").value;
         const li = document.createElement("li");
 
         let solution = "Nope";
-        for (let i = 0; i < words.length; i++) {
-            if (words[i] === inputText) {
-                solution = words[i];
-                break;
+
+        if (containsAllowedLetters(inputText) ) {
+            /*
+            for (let i = 0; i < words.length; i++) {
+                if (words[i] === inputText) {
+                    solution = words[i];
+                    break;
+                }
             }
+            */
+
+            solution = inputText;
+
+
         }
 
         li.appendChild(document.createTextNode(solution));
         ul.appendChild(li);
+
     });
 }
 
 window.onload = function () {
     getWords();
-
-    const letters = "AMNCKASDR";
-    setSquareLetters(letters);
+    setSquareLetters();
     addGuessListener();
 };
 
