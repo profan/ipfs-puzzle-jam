@@ -4,6 +4,11 @@
     <title>Puzzle</title>
     <link rel="stylesheet" href="css/main.css">
     <script src="js/main.js"></script>
+
+    <script>
+    	const guesses = new Set(["a", "b", "c"]);
+    	console.log(guesses)
+    </script>
 </header>
 <body>
 <div class="center">
@@ -17,7 +22,7 @@
             </tr>
             <tr>
                 <td id="square3">D</td>
-                <td id="square4">E</td>
+                <td id="square4"><b>E</b></td>
                 <td id="square5">F</td>
             </tr>
             <tr>
@@ -34,8 +39,9 @@
     </div>
 
     <ul>
-        <li>guess 1</li>
-        <li>guess 2</li>
+    	<script>
+    		for (let item of guesses) document.write("<li>",item,"</li>");
+    	</script>	
     </ul>
 
 </div>
