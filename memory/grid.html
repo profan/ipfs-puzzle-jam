@@ -22,15 +22,15 @@ gs.total_flipped_cards = 7
   }
   .spin {
 	  -webkit-animation-name: spin;
-	  -webkit-animation-duration: 40000ms;
+	  -webkit-animation-duration: 1000ms;
 	  -webkit-animation-iteration-count: infinite;
 	  -webkit-animation-timing-function: linear;
 	  -moz-animation-name: spin;
-	  -moz-animation-duration: 40000ms;
+	  -moz-animation-duration: 1000ms;
 	  -moz-animation-iteration-count: infinite;
 	  -moz-animation-timing-function: linear;
 	  -ms-animation-name: spin;
-	  -ms-animation-duration: 40000ms;
+	  -ms-animation-duration: 400s;
 	  -ms-animation-iteration-count: infinite;
 	  -ms-animation-timing-function: linear;
 	  -o-transition: rotate(3600deg);
@@ -38,11 +38,11 @@ gs.total_flipped_cards = 7
 </style>
 
 <main style="display: none;" id="won">
-    <img class="spin" src="img/win.gif">
+    <img class="spin" src="img/win.gif" onclick="location.reload()">
 </main>
 
 <main style="display: none;" id="lose">
-    <img class="spin" src="img/lose.gif">
+    <img class="spin" src="img/lose.gif" onclick="location.reload()">
 </main>
 
 <main id="main">
