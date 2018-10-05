@@ -42,6 +42,18 @@ function shuffle_array(arr) {
 function start_game(game_state) {
   game_state.state = "time_to_flip"
   shuffle_array(game_state.board)
+
+  document.addEventListener("DOMContentLoaded", function(ev) {
+    // set up init anim
+    for (let i = 0; i < 16; ++i) {
+      const el = document.getElementById(i.toString())
+      el.className += "spawn"
+      setTimeout(function() {
+        el.className += " scale"
+      }, (i * 100))
+    }
+  })
+
 }
 
 function flip_card(game_state, id) {
@@ -49,20 +61,38 @@ function flip_card(game_state, id) {
   var img = document.getElementById(id.toString())
   console.log(img.src);
   if (!img.src.endsWith("dog.jpg")) return;
+  if (game_state.in_trans) return;
 
   if (game_state.state == "time_to_flip") {
 
     game_state.state = "time_to_match"
     game_state.flipped_card = id 
     game_state.number_of_moves++
+    game_state.in_trans = true
+    
+    img.className = "flip"
+    setTimeout(function() {
+      img.src = "img/" + game_state.board[id]
+    }, 250)
+    setTimeout(function() {
+      game_state.in_trans = false
+      img.className = ""
+    }, 500)
 
     for (var i = 0; i < game_state.flipped_cards.length; ++i) {
-      var card = document.getElementById(game_state.flipped_cards[i])
-      card.src = "img/dog.jpg"
+      const card = document.getElementById(game_state.flipped_cards[i])
+      card.className += "flip"
+      game_state.in_trans = true
+      setTimeout(function() {
+        card.src = "img/dog.jpg"
+      }, 250)
+      setTimeout(function() {
+        game_state.in_trans = false
+        card.className = ""
+      }, 500)
     }
 
     game_state.flipped_cards[0] = id
-    img.src = "img/" + game_state.board[id]
     console.log("[time_to_flip -> time_to_match] id: " + id)
 
   } else if (game_state.state == "time_to_match") {
@@ -70,14 +100,28 @@ function flip_card(game_state, id) {
     if (game_state.board[game_state.flipped_card] == game_state.board[id]) {
       // WE MATCH
       game_state.flipped_cards = []
-      img.src = "img/" + game_state.board[id]
+      game_state.in_trans = true
+      setTimeout(function() {
+        img.src = "img/" + game_state.board[id]
+      }, 250)
+      setTimeout(function() {
+        game_state.in_trans = false
+        img.className = ""
+      }, 500)
       console.log("[time_to_match -> ?] match: " + id)
       game_state.flipped_card = null
       game_state.total_flipped_cards += 1
     } else {
       // WE NO MATCH
       game_state.flipped_cards[1] = id
-      img.src = "img/" + game_state.board[id]
+      game_state.in_trans = true
+      setTimeout(function() {
+        img.src = "img/" + game_state.board[id]
+      }, 250)
+      setTimeout(function() {
+        game_state.in_trans = false
+        img.className = ""
+      }, 500)
       console.log("[time_to_match - ?] no match: " + id)
       game_state.flipped_card = null
     }
